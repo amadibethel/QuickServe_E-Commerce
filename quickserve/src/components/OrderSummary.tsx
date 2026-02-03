@@ -1,4 +1,4 @@
-import { CartItem } from "../store/cart.store";
+import type { CartItem } from "../store/cart.store";
 import {
   calculateSubtotal,
   calculateVAT,

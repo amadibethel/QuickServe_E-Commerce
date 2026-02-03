@@ -42,8 +42,8 @@ const Checkout = () => {
 
     if (!validation.success) {
       const fieldErrors: Record<string, string> = {};
-      validation.error.errors.forEach(err => {
-        fieldErrors[err.path[0]] = err.message;
+      validation.error.issues.forEach((err: any) => {
+      console.log(err.message);
       });
       setErrors(fieldErrors);
       return;
@@ -52,7 +52,7 @@ const Checkout = () => {
     const paystack = new PaystackPop();
 
     paystack.newTransaction({
-      key: "pk_test_xxxxxxxxxxxxxxxxxxxxxx", // replace with your Paystack PUBLIC key
+      key: "pk_test_xxxxxxxxxxxxxxxxxxxxxx", // replace with Paystack PUBLIC key
       email: formData.email,
       amount: Math.round(total * 100), // kobo
       ref: `QS-${Date.now()}`,
@@ -62,7 +62,7 @@ const Checkout = () => {
           { display_name: "Phone", variable_name: "phone", value: formData.phone }
         ]
       },
-      onSuccess: (transaction) => {
+      onSuccess: (transaction: any) => {
         clearCart();
         navigate("/success", {
           state: {

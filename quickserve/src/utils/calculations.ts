@@ -1,4 +1,4 @@
-import { CartItem } from "../store/cart.store";
+import type { CartItem } from "../store/cart.store";
 
 export const calculateSubtotal = (items: CartItem[]) =>
   items.reduce((sum, item) => sum + item.price * item.quantity, 0);
