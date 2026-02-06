@@ -1,37 +1,20 @@
-import { Link } from "react-router-dom";
 import { useCartStore } from "../store/cart.store";
 import CartItem from "../components/CartItem";
 import OrderSummary from "../components/OrderSummary";
+import { Link } from "react-router-dom";
 
-const Cart = () => {
+export default function Cart() {
   const items = useCartStore(state => state.items);
 
-  if (items.length === 0) {
-    return (
-      <div>
-        <h2>Your cart is empty 🛒</h2>
-        <Link to="/">Go shopping</Link>
-      </div>
-    );
-  }
+  if (!items.length) return <p>Your cart is empty</p>;
 
   return (
-    <div>
-      <h2>Your Cart</h2>
-
+    <>
       {items.map(item => (
         <CartItem key={item.id} item={item} />
       ))}
-
-      <OrderSummary items={items} />
-
-      <Link to="/checkout">
-        <button style={{ marginTop: 20 }}>
-          Proceed to Checkout
-        </button>
-      </Link>
-    </div>
+      <OrderSummary />
+      <Link to="/checkout">Proceed to Checkout</Link>
+    </>
   );
-};
-
-export default Cart;
+}

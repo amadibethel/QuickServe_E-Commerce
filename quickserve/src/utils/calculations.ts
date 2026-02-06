@@ -1,10 +1,8 @@
 import type { CartItem } from "../store/cart.store";
 
-export const calculateSubtotal = (items: CartItem[]) =>
-  items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+export const subtotal = (items: CartItem[]) =>
+  items.reduce((sum, i) => sum + i.price * i.quantity, 0);
 
-export const calculateVAT = (subtotal: number) =>
-  subtotal * 0.075;
+export const vat = (items: CartItem[]) => subtotal(items) * 0.075;
 
-export const calculateTotal = (subtotal: number) =>
-  subtotal + calculateVAT(subtotal);
+export const total = (items: CartItem[]) => subtotal(items) + vat(items);

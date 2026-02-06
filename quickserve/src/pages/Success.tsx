@@ -1,22 +1,12 @@
-import { useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-const Success = () => {
-  const location = useLocation();
-  const { reference, total } = location.state || {};
-
-  if (!reference) {
-    return <Link to="/">Go back home</Link>;
-  }
+export default function Success() {
+  const { state } = useLocation();
 
   return (
-    <div>
-      <h2>Payment Successful 🎉</h2>
-      <p>Reference: <strong>{reference}</strong></p>
-      <p>Total Paid: ₦{total.toFixed(2)}</p>
-
-      <Link to="/">Continue Shopping</Link>
-    </div>
+    <>
+      <h1>Payment Successful 🎉</h1>
+      <p>Reference: {state?.reference}</p>
+    </>
   );
-};
-
-export default Success;
+}

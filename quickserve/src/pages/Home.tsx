@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { fetchProducts } from "../api/products";
+import { fetchProducts, Product } from "../api/products";
 import ProductCard from "../components/ProductCard";
 
-const Home = () => {
-  const [products, setProducts] = useState<any[]>([]);
+export default function Home() {
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     fetchProducts().then(setProducts);
@@ -12,14 +12,11 @@ const Home = () => {
   return (
     <div>
       <h1>QuickServe Store</h1>
-
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
-        {products.map(product => (
-          <ProductCard key={product.id} product={product} />
+      <div>
+        {products.map(p => (
+          <ProductCard key={p.id} product={p} />
         ))}
       </div>
     </div>
   );
-};
-
-export default Home;
+}
