@@ -1,73 +1,123 @@
-# React + TypeScript + Vite
+# QuickServe — Modern E-Commerce Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+QuickServe is a modern, lightweight e-commerce frontend application built with **Vue 3**, **Vite**, and **Pinia**, featuring a full shopping flow — product listing, cart management, and secure checkout using **Paystack**.
 
-Currently, two official plugins are available:
+This project was designed to demonstrate real-world frontend architecture, state management, routing, and third-party payment integration, and is fully deployed on **Vercel**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Live Demo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+ **Production URL:**  
+https://quickserve-swart.vercel.app
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Features
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Product listing (Home page)
+- Add to Cart & Cart management
+- Quantity tracking
+- Paystack payment integration
+- Client-side routing (SPA)
+- Centralized state management with Pinia
+- Fast builds with Vite
+- Deployed on Vercel
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Tech Stack
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+| Technology | Purpose |
+|----------|--------|
+| Vue 3 (Composition API) | Frontend framework |
+| Vite | Development & build tool |
+| Vue Router | Client-side routing |
+| Pinia | Global state management |
+| Paystack Inline | Payment processing |
+| CSS | Styling |
+| Vercel | Deployment & hosting |
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Project Structure
+
+quickserve/
+├─ index.html
+├─ package.json
+├─ vite.config.js
+└─ src/
+├─ main.js
+├─ App.vue
+├─ router/
+│ └─ index.js
+├─ store/
+│ └─ cart.js
+├─ pages/
+│ ├─ Home.tsx
+│ ├─ Cart.tsx
+│ └─ Checkout.tsx
+└─ components/
+└─ ProductCard.tsx
+
+---
+
+## Application Flow
+
+1. **Home Page**
+
+   - Displays available products
+   - Users can add items to the cart
+
+2. **Cart Page**
+
+   - View selected items
+   - Remove items
+   - See total cost
+
+3. **Checkout Page**
+
+   - Pay securely via Paystack
+   - Cart clears after successful payment
+
+---
+
+## State Management
+
+The cart state is managed globally using **Pinia**, allowing:
+
+- Persistent cart across pages
+- Centralized price calculation
+- Easy scalability
+
+Key store features:
+
+- `addToCart()`
+- `remove()`
+- `clear()`
+- `totalAmount` getter
+
+---
+
+## Paystack Integration
+
+Payments are handled using **Paystack Inline JavaScript**.
+
+### How it works:
+
+- Amount is calculated from cart state
+- Converted to kobo (₦ × 100)
+- Paystack popup handles payment
+- Success callback clears cart
+
+> For production, always store Paystack keys in environment variables.
+
+---
+
+## Environment Variables (Recommended)
+
+Create a `.env` file:
+
+```env
+VITE_PAYSTACK_PUBLIC_KEY=pk_live_xxxxxxxxxxxxxx
+
